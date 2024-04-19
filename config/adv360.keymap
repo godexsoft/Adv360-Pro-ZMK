@@ -35,14 +35,14 @@
         dvorak: dvorak {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 1 &kp F15>;
+            bindings = <&to 1 &kp LC(SPACE)>;
             label = "DVORAK";
         };
 
         russian: russian {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 0 &kp F16>;
+            bindings = <&to 0 &kp RS(RC(SPACE))>;
             label = "RUSSIAN";
         };
     };
