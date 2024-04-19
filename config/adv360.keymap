@@ -42,7 +42,7 @@
         russian: russian {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 0 &kp RS(RC(SPACE))>;
+            bindings = <&to 0 &kp RC(SPACE)>;
             label = "RUSSIAN";
         };
     };
