@@ -136,11 +136,11 @@
 
         mods_linux {
             bindings = <
-&none  &bt BT_SEL 0   &bt BT_SEL 1       &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4  &none                                                          &trans                  &kp LS(LC(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&none  &kp RC(Q)      &kp LC(W)          &kp LS(LC(K))  &kp RG(P)      &kp LC(T)     &bootloader                                                    &bootloader             &kp RC(F)      &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp EQUAL        &kp C_MUTE         &kp C_PLAY_PAUSE
-&none  &kp LC(S)      &kp LC(O)          &kp RC(C)      &kp RC(V)      &kp F12       &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
-&none  &kp LC(MINUS)  &kp RS(RC(MINUS))  &kp RC(Z)      &kp RS(RC(Z))  &none                             &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
-&none  &none          &none              &none          &none                        &none        &none  &none      &rgb_ug RGB_TOG  &kp RC(ENTER)  &kp RC(SLASH)                          &bl BL_INC            &bl BL_DEC             &kp MINUS        &none              &none
+&none  &kp RG(NUMBER_1)  &kp RG(NUMBER_2)   &kp RG(NUMBER_3)  &kp RG(NUMBER_4)  &kp RG(N5)  &none                                                          &trans                  &kp LS(LC(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
+&none  &kp RC(Q)         &kp LC(W)          &kp LS(LC(K))     &kp RG(P)         &kp LC(T)   &bootloader                                                    &bootloader             &kp RC(F)      &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp EQUAL        &kp C_MUTE         &kp C_PLAY_PAUSE
+&none  &kp LC(S)         &kp LC(O)          &kp RC(C)         &kp RC(V)         &kp F12     &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
+&none  &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp RC(Z)         &kp RS(RC(Z))     &none                           &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
+&none  &none             &none              &none             &none                         &none        &none  &none      &rgb_ug RGB_TOG  &kp RC(ENTER)  &kp RC(SLASH)                          &bl BL_INC            &bl BL_DEC             &kp MINUS        &none              &none
             >;
         };
     };
