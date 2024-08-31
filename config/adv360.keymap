@@ -45,6 +45,83 @@
             bindings = <&to 0 &kp RC(SPACE)>;
             label = "RUSSIAN";
         };
+
+        tmux_left: tmux_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp H>;
+            label = "TMUX_LEFT";
+        };
+
+        tmux_right: tmux_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp N>;
+            label = "TMUX_RIGHT";
+        };
+
+        tmux_up: tmux_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp C>;
+            label = "TMUX_UP";
+        };
+
+        tmux_down: tmux_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp T>;
+            label = "TMUX_DOWN";
+        };
+
+        tmux_vsplit: tmux_vsplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp PERIOD>;
+            label = "TMUX_VSPLIT";
+        };
+
+        tmux_hsplit: tmux_hsplit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp P>;
+            label = "TMUX_HSPLIT";
+        };
+
+        tmux_newtab: tmux_newtab {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp Y>;
+            label = "TMUX_NEWTAB";
+        };
+
+        tmux_resize_left: tmux_resize_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp RC(H)>;
+            label = "TMUX_RESIZE_LEFT";
+        };
+
+        tmux_resize_right: tmux_resize_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp RC(N)>;
+            label = "TMUX_RESIZE_RIGHT";
+        };
+
+        tmux_resize_up: tmux_resize_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp RC(C)>;
+            label = "TMUX_RESIZE_UP";
+        };
+
+        tmux_resize_down: tmux_resize_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RC(A) &kp RC(T)>;
+            label = "TMUX_RESIZE_DOWN";
+        };
     };
 
     keymap {
@@ -102,11 +179,11 @@
 
         arrows {
             bindings = <
-&trans  &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4  &trans                                      &trans  &trans  &none     &none         &trans     &trans             &trans
-&trans  &trans          &none         &kp LG(UP_ARROW)  &none          &none         &trans                                      &trans  &none   &none     &kp UP_ARROW  &none      &none              &trans
-&trans  &kp LEFT_SHIFT  &kp RG(LEFT)  &kp RG(DOWN)      &kp LG(RIGHT)  &none         &trans  &trans  &trans      &trans  &trans  &trans  &none   &kp LEFT  &kp DOWN      &kp RIGHT  &kp RIGHT_ALT      &trans
-&trans  &kp LEFT_ALT    &none         &none             &none          &none                         &trans      &trans                  &none   &none     &none         &none      &kp RIGHT_CONTROL  &trans
-&trans  &trans          &trans        &trans            &trans                       &trans  &trans  &trans      &trans  &trans  &trans          &trans    &trans        &trans     &trans             &trans
+&trans  &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4  &trans                                      &trans  &trans  &tmux_resize_left  &tmux_resize_down  &tmux_resize_up  &tmux_resize_right  &trans
+&trans  &trans          &none         &kp LG(UP_ARROW)  &none          &none         &trans                                      &trans  &none   &none              &kp UP_ARROW       &none            &none               &trans
+&trans  &kp LEFT_SHIFT  &kp RG(LEFT)  &kp RG(DOWN)      &kp LG(RIGHT)  &none         &trans  &trans  &trans      &trans  &trans  &trans  &none   &kp LEFT           &kp DOWN           &kp RIGHT        &kp RIGHT_ALT       &trans
+&trans  &kp LEFT_ALT    &none         &none             &none          &none                         &trans      &trans                  &none   &none              &none              &none            &kp RIGHT_CONTROL   &trans
+&trans  &trans          &tmux_newtab  &tmux_hsplit      &tmux_vsplit                 &trans  &trans  &trans      &trans  &trans  &trans          &tmux_left         &tmux_down         &tmux_up         &tmux_right         &trans
             >;
         };
     };
