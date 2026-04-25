@@ -30,15 +30,13 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Platform-aware mod key: tap for Mac layer, hold for Linux layer
-        mod_plat: mod_platform {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MOD_PLATFORM";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick_tap_ms = <175>;
-            flavor = "tap-preferred";
-            bindings = <&mo>, <&mo>;
+        // Conditional mod behavior - activates different layer based on platform toggle
+        mod_cond: mod_conditional {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MOD_CONDITIONAL";
+            #binding-cells = <0>;
+            bindings = <&mo 4>, <&mo 6>;
+            mods = <(MOD_LALT)>;  // dummy, we'll use layer-based conditional instead
         };
     };
 
@@ -138,7 +136,7 @@
         toggle_platform: toggle_platform {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&tog 6>;
+            bindings = <&tog 7>;
             label = "TOGGLE_PLATFORM";
         };
     };
@@ -152,7 +150,7 @@
 &kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                    &kp LA(LC(SPACE))  &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
 &kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL     &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL    &toggle_platform              &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
 &kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                &kp HOME      &kp PG_UP                                          &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 4 DELETE  &kp END       &kp PAGE_DOWN      &lt 5 ENTER  &kp SPACE                  &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 5
+&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &mo 4         &kp END       &kp PAGE_DOWN      &lt 5 ENTER  &kp SPACE                  &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 5
             >;
         };
 
@@ -217,6 +215,18 @@
 &none              &kp LC(S)         &kp LC(O)          &kp LC(C)         &kp LC(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
 &none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LC(Z)         &kp LC(LS(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
 &none              &none             &kp LA(LS(SEMI))   &kp LA(COMMA)     &kp LA(SLASH)                       &none        &none  &none      &rgb_ug RGB_TOG  &kp LC(ENTER)  &kp LC(SLASH)                          &kp LA(H)             &kp LA(J)              &kp RA(K)        &kp LA(L)          &none
+            >;
+        };
+
+        platform-switch {
+            // Linux mode toggle layer
+            // When this layer is toggled on, it overrides the mod key position to activate layer 6 (Linux)
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &mo 6          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &toggle_platform  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &mo 6   &trans      &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
