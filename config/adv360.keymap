@@ -3,10 +3,20 @@
  *
  * SPDX-License-Identifier: MIT
  */
-/* THIS FILE WAS GENERATED!
+/* Platform-Specific Configuration for Advantage 360 Pro
  *
- * This file was generated automatically. You may or may not want to
- * edit it directly.
+ * This keymap implements dual-platform support for Linux and macOS.
+ * It includes separate mod layers for each platform with appropriate
+ * modifier key bindings for common shortcuts.
+ *
+ * Layer Structure:
+ * 0: Base QWERTY
+ * 1: Dvorak
+ * 2: Keypad
+ * 3: Function Keys
+ * 4: Mod Layer - Mac (default)
+ * 5: Arrows & TMUX
+ * 6: Mod Layer - Linux
  */
 
 #include <behaviors.dtsi>
@@ -30,23 +40,16 @@
             bindings = <&kp>, <&kp>;
         };
 
-    };
+        // Platform-aware mod key: tap for Mac layer, hold for Linux layer
 
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-        // When Layer 7 is active, pressing mod key activates both Layer 4 AND Layer 7
-        // This triggers Layer 6 (Linux mods) instead
-        mod_linux {
-            if-layers = <4 7>;
-            then-layer = <6>;
-        };
-
-        // When Layer 7 is active, pressing arrows key activates both Layer 5 AND Layer 7
-        // This triggers Layer 8 (Linux arrows) instead
-        arrows_linux {
-            if-layers = <5 7>;
-            then-layer = <8>;
+        mod_plat: mod_platform {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MOD_PLATFORM";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick_tap_ms = <175>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&mo>;
         };
     };
 
@@ -54,7 +57,7 @@
         dvorak: dvorak {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 1 &kp LC(SPACE)>;
+            bindings = <&to 2 &kp LC(SPACE)>;
             label = "DVORAK";
         };
 
@@ -142,12 +145,20 @@
             label = "TMUX_RESIZE_DOWN";
         };
 
-        // Platform toggle: switch between Mac and Linux mod layers
-        toggle_platform: toggle_platform {
+        // Platform switching macros
+
+        switch_mac: switch_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&tog 7>;
-            label = "TOGGLE_PLATFORM";
+            bindings = <&to 4>;  // Return to base (uses Mac mod layer 4)
+            label = "SWITCH_MAC";
+        };
+
+        switch_linux: switch_linux {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&to 5>;  // Base layer will use Linux mod layer 6 when &mo 6 is pressed
+            label = "SWITCH_LINUX";
         };
     };
 
@@ -156,11 +167,11 @@
 
         default-qwerty {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 2                                                                     &mo 4              &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
-&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                    &kp LA(LC(SPACE))  &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
-&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL     &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL    &toggle_platform              &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                &kp HOME      &kp PG_UP                                          &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &mo 4         &kp END       &kp PAGE_DOWN      &lt 5 ENTER  &kp SPACE                  &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 5
+&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 2                                                                       &none      &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                      &to 4      &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
+&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL      &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL     &to 5      &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                 &kp HOME      &kp PG_UP                                   &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 10 DELETE  &kp END       &kp PAGE_DOWN      &lt 11 ENTER  &kp SPACE          &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
             >;
         };
 
@@ -168,7 +179,7 @@
             bindings = <
 &kp EQUAL  &kp N1     &kp N2     &kp N3   &kp N4  &kp N5  &trans                                        &trans  &kp N6  &kp N7  &kp N8  &kp N9    &kp N0    &kp MINUS
 &kp TAB    &kp APOS   &kp COMMA  &kp DOT  &kp P   &kp Y   &russian                                      &trans  &kp F   &kp G   &kp C   &kp R     &kp L     &kp FSLH
-&kp ESC    &kp A      &kp O      &kp E    &kp U   &kp I   &trans    &trans  &trans      &trans  &trans  &toggle_platform  &kp D   &kp H   &kp T   &kp N     &kp S     &kp BSLH
+&kp ESC    &kp A      &kp O      &kp E    &kp U   &kp I   &trans    &trans  &trans      &trans  &trans  &trans  &kp D   &kp H   &kp T   &kp N     &kp S     &kp BSLH
 &kp LSHFT  &kp SEMI   &kp Q      &kp J    &kp K   &kp X                     &trans      &trans                  &kp B   &kp M   &kp W   &kp V     &kp Z     &kp RSHFT
 &trans     &kp GRAVE  &trans     &trans   &trans          &trans    &trans  &trans      &trans  &trans  &trans          &trans  &trans  &kp LBKT  &kp RBKT  &trans
             >;
@@ -176,9 +187,9 @@
 
         keypad {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &trans                                                   &mo 4          &kp N6  &kp KP_NUM  &kp KP_EQUAL  &kp KP_DIVIDE  &kp KP_MULTIPLY  &kp MINUS
+&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &trans                                                   &none      &kp N6  &kp KP_NUM  &kp KP_EQUAL  &kp KP_DIVIDE  &kp KP_MULTIPLY  &kp MINUS
 &kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &none                                                    &none      &kp Y   &kp KP_N7   &kp KP_N8     &kp KP_N9      &kp KP_MINUS     &kp BSLH
-&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &none     &kp LCTRL  &kp LALT      &kp LGUI   &kp RCTRL  &toggle_platform      &kp H   &kp KP_N4   &kp KP_N5     &kp KP_N6      &kp KP_PLUS      &kp SQT
+&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &none     &kp LCTRL  &kp LALT      &kp LGUI   &kp RCTRL  &none      &kp H   &kp KP_N4   &kp KP_N5     &kp KP_N6      &kp KP_PLUS      &kp SQT
 &kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                        &kp HOME      &kp PG_UP                        &kp N   &kp KP_N1   &kp KP_N2     &kp KP_N3      &kp KP_ENTER     &kp RSHFT
 &mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BSPC  &kp DEL    &kp END       &kp PG_DN  &kp ENTER  &kp KP_N0          &kp UP      &kp DOWN      &kp KP_DOT     &none            &mo 3
             >;
@@ -186,19 +197,39 @@
 
         fn {
             bindings = <
-&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 2                                      &mo 4          &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
-&trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none   &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &none   &none   &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans   &trans   &trans
+&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 2                                      &mod_plat 7 7  &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
+&trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none          &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none          &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &none   &none   &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans                 &trans  &trans  &trans   &trans   &trans
+            >;
+        };
+
+        platform-mac {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        platform-linux {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
             >;
         };
 
         mods-mac {
-            // Mac-specific shortcuts (Cmd-based) - DEFAULT
-            // Press toggle key (left of H) to switch to Linux layer
+            // Mac-specific shortcuts (Cmd-based)
+
             bindings = <
-&kp RA(RS(PLUS))   &kp LA(NUMBER_1)  &kp LA(NUMBER_2)   &kp LA(NUMBER_3)  &kp LA(NUMBER_4)  &kp LA(NUMBER_5)  &none                                                          &trans                  &kp LG(LS(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
+&kp RA(RS(PLUS))   &kp LA(NUMBER_1)  &kp LA(NUMBER_2)   &kp LA(NUMBER_3)  &kp LA(NUMBER_4)  &kp LA(NUMBER_5)  &none                                                          &mo 7                   &kp LG(LS(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
 &kp LA(LS(MINUS))  &kp LG(Q)         &kp LG(W)          &kp LS(LG(K))     &kp LG(SPACE)     &kp LG(T)         &bootloader                                                    &bootloader             &kp LG(F)      &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp EQUAL        &kp C_MUTE         &kp C_PLAY_PAUSE
 &none              &kp LG(S)         &kp LG(O)          &kp LG(C)         &kp LG(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
 &none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LG(Z)         &kp LS(LG(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
@@ -206,7 +237,19 @@
             >;
         };
 
-        arrows {
+        mods-linux {
+            // Linux-specific shortcuts (Ctrl-based)
+
+            bindings = <
+&kp RA(RS(PLUS))   &kp LA(NUMBER_1)  &kp LA(NUMBER_2)   &kp LA(NUMBER_3)  &kp LA(NUMBER_4)  &kp LA(NUMBER_5)  &none                                                          &mo 7                   &kp LC(LS(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
+&kp LA(LS(MINUS))  &kp LA(F4)        &kp LC(W)          &kp LS(LC(K))     &kp LGUI          &kp LC(T)         &bootloader                                                    &bootloader             &kp LC(F)      &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp EQUAL        &kp C_MUTE         &kp C_PLAY_PAUSE
+&none              &kp LC(S)         &kp LC(O)          &kp LC(C)         &kp LC(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
+&none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LC(Z)         &kp LC(LS(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
+&none              &none             &kp LA(LS(SEMI))   &kp LA(COMMA)     &kp LA(SLASH)                       &none        &none  &none      &rgb_ug RGB_TOG  &kp LC(ENTER)  &kp LC(SLASH)                          &kp LA(H)             &kp LA(J)              &kp RA(K)        &kp LA(L)          &none
+            >;
+        };
+
+        arrows-mac {
             bindings = <
 &trans  &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4  &trans                                      &trans  &trans  &tmux_resize_left  &tmux_resize_down  &tmux_resize_up  &tmux_resize_right  &trans
 &trans  &trans          &none         &kp LG(UP_ARROW)  &none          &none         &trans                                      &trans  &none   &none              &kp UP_ARROW       &none            &none               &trans
@@ -216,20 +259,7 @@
             >;
         };
 
-        mods-linux {
-            // Linux-specific shortcuts (Ctrl-based) - TOGGLE TO ACTIVATE
-            // Press toggle key (left of H) to switch back to Mac layer
-            bindings = <
-&kp RA(RS(PLUS))   &kp LA(NUMBER_1)  &kp LA(NUMBER_2)   &kp LA(NUMBER_3)  &kp LA(NUMBER_4)  &kp LA(NUMBER_5)  &none                                                          &trans                  &kp LC(LS(F))  &kp LESS_THAN         &kp GREATER_THAN       &kp PIPE         &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&kp LA(LS(MINUS))  &kp LA(F4)        &kp LC(W)          &kp LS(LC(K))     &kp LGUI          &kp LC(T)         &bootloader                                                    &bootloader             &kp LC(F)      &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp EQUAL        &kp C_MUTE         &kp C_PLAY_PAUSE
-&none              &kp LC(S)         &kp LC(O)          &kp LC(C)         &kp LC(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
-&none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LC(Z)         &kp LC(LS(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
-&none              &none             &kp LA(LS(SEMI))   &kp LA(COMMA)     &kp LA(SLASH)                       &none        &none  &none      &rgb_ug RGB_TOG  &kp LC(ENTER)  &kp LC(SLASH)                          &kp LA(H)             &kp LA(J)              &kp RA(K)        &kp LA(L)          &none
-            >;
-        };
-
         arrows-linux {
-            // Linux version of arrows - uses Ctrl instead of Cmd
             bindings = <
 &trans  &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4  &trans                                      &trans  &trans  &tmux_resize_left  &tmux_resize_down  &tmux_resize_up  &tmux_resize_right  &trans
 &trans  &trans          &none         &kp LC(UP_ARROW)  &none          &none         &trans                                      &trans  &none   &none              &kp UP_ARROW       &none            &none               &trans
@@ -239,19 +269,48 @@
             >;
         };
 
-        platform-switch {
-            // Platform toggle layer - transparent everywhere except toggle key
-            // Uses conditional_layers to automatically switch mod/arrows behavior
-            // When this layer is active:
-            // - Layer 4 + Layer 7 = Layer 6 (Linux mods via tri-layer)
-            // - Layer 5 + Layer 7 = Layer 8 (Linux arrows via tri-layer)
+        mods-request {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &toggle_platform  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans       &trans         &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
             >;
+        };
+
+        arrows-request {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        linux-mods {
+            if-layers = <10 5>;
+            then-layer = <7>;
+        };
+
+        linux-arrows {
+            if-layers = <11 5>;
+            then-layer = <9>;
+        };
+
+        mac-mods {
+            if-layers = <4 10>;
+            then-layer = <6>;
+        };
+
+        arrows-mac {
+            if-layers = <11 4>;
+            then-layer = <8>;
         };
     };
 };
