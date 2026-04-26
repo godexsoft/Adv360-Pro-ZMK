@@ -215,6 +215,8 @@
 &none              &kp LC(S)         &kp LC(O)          &kp LC(C)         &kp LC(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
 &none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LC(Z)         &kp LC(LS(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
 &none              &none             &kp LA(LS(SEMI))   &kp LA(COMMA)     &kp LA(SLASH)                       &none        &none  &none      &rgb_ug RGB_TOG  &kp LC(ENTER)  &kp LC(SLASH)                          &kp LA(H)             &kp LA(J)              &kp RA(K)        &kp LA(L)          &none
+            >;
+        };
 
         arrows-linux {
             // Linux version of arrows - uses Ctrl instead of Cmd
