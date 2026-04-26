@@ -215,29 +215,18 @@
 &none              &kp LC(S)         &kp LC(O)          &kp LC(C)         &kp LC(V)         &kp F12           &none        &none  &none      &bt BT_CLR       &none          &rgb_ug RGB_MEFS_CMD 5  &none          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EXCLAMATION  &kp C_PREVIOUS     &kp C_NEXT
 &none              &kp LC(MINUS)     &kp RS(RC(MINUS))  &kp LC(Z)         &kp LC(LS(Z))     &none                                 &none      &bl BL_TOG                                              &none          &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp PLUS         &none              &none
 &none              &none             &kp LA(LS(SEMI))   &kp LA(COMMA)     &kp LA(SLASH)                       &none        &none  &none      &rgb_ug RGB_TOG  &kp LC(ENTER)  &kp LC(SLASH)                          &kp LA(H)             &kp LA(J)              &kp RA(K)        &kp LA(L)          &none
-
-        arrows-linux {
-            // Linux version of arrows - uses Ctrl instead of Cmd
-            bindings = <
-&trans  &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2      &bt BT_SEL 3   &bt BT_SEL 4  &trans                                      &trans  &trans  &tmux_resize_left  &tmux_resize_down  &tmux_resize_up  &tmux_resize_right  &trans
-&trans  &trans          &none         &kp LC(UP_ARROW)  &none          &none         &trans                                      &trans  &none   &none              &kp UP_ARROW       &none            &none               &trans
-&trans  &kp LEFT_SHIFT  &kp LC(LEFT)  &kp LC(DOWN)      &kp LC(RIGHT)  &none         &trans  &trans  &trans      &trans  &trans  &trans  &none   &kp LEFT           &kp DOWN           &kp RIGHT        &kp RIGHT_ALT       &trans
-&trans  &kp LEFT_ALT    &none         &none             &none          &none                         &trans      &trans                  &none   &none              &none              &none            &kp RIGHT_CONTROL   &trans
-&trans  &trans          &tmux_newtab  &tmux_hsplit      &tmux_vsplit                 &trans  &trans  &trans      &trans  &trans  &trans          &tmux_left         &tmux_down         &tmux_up         &tmux_right         &trans
             >;
         };
 
         platform-switch {
             // Linux mode toggle layer
-            // When this layer is toggled on, it overrides:
-            // - Mod key position to activate layer 6 (Linux mods)
-            // - Arrows key position to activate layer 8 (Linux arrows)
+            // When this layer is toggled on, it overrides the mod key position to activate layer 6 (Linux)
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &mo 6          &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &toggle_platform  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &mo 6   &trans      &trans  &lt 8 ENTER  &trans         &trans  &trans  &trans  &trans  &tog 8  &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &mo 6   &trans      &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
