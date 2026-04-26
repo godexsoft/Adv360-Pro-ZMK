@@ -30,34 +30,14 @@
         #include "macros.dtsi"
     #include "version.dtsi"
 
-        hm: homerow_mods {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HOMEROW_MODS";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick_tap_ms = <175>;
-            flavor = "tap-preferred";
-            bindings = <&kp>, <&kp>;
-        };
-
         // Platform-aware mod key: tap for Mac layer, hold for Linux layer
-
-        mod_plat: mod_platform {
-            compatible = "zmk,behavior-hold-tap";
-            label = "MOD_PLATFORM";
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-            quick_tap_ms = <175>;
-            flavor = "tap-preferred";
-            bindings = <&mo>, <&mo>;
-        };
     };
 
     macros {
         dvorak: dvorak {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 2 &kp LC(SPACE)>;
+            bindings = <&to 1 &kp LC(SPACE)>;
             label = "DVORAK";
         };
 
@@ -150,14 +130,14 @@
         switch_mac: switch_mac {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 4>;  // Return to base (uses Mac mod layer 4)
+            bindings = <&tog 4>;  // Return to base (uses Mac mod layer 4)
             label = "SWITCH_MAC";
         };
 
         switch_linux: switch_linux {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 5>;  // Base layer will use Linux mod layer 6 when &mo 6 is pressed
+            bindings = <&tog 5>;  // Base layer will use Linux mod layer 6 when &mo 6 is pressed
             label = "SWITCH_LINUX";
         };
     };
@@ -167,11 +147,11 @@
 
         default-qwerty {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 2                                                                       &none      &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
-&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                      &to 4      &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
-&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL      &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL     &to 5      &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                 &kp HOME      &kp PG_UP                                   &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 10 DELETE  &kp END       &kp PAGE_DOWN      &lt 11 ENTER  &kp SPACE          &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
+&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 2                                                                       &none          &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                      &switch_mac    &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
+&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL      &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL     &switch_linux  &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                 &kp HOME      &kp PG_UP                                       &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 10 DELETE  &kp END       &kp PAGE_DOWN      &lt 11 ENTER  &kp SPACE              &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
             >;
         };
 
@@ -197,11 +177,11 @@
 
         fn {
             bindings = <
-&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 2                                      &mod_plat 7 7  &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
-&trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none          &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none          &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &none   &none   &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans   &trans   &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans                 &trans  &trans  &trans   &trans   &trans
+&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 2                                      &none   &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
+&trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none   &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &none   &none   &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans   &trans   &trans
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans   &trans   &trans
             >;
         };
 
