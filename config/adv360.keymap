@@ -30,13 +30,23 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // Conditional mod behavior - activates different layer based on platform toggle
-        mod_cond: mod_conditional {
-            compatible = "zmk,behavior-mod-morph";
-            label = "MOD_CONDITIONAL";
-            #binding-cells = <0>;
-            bindings = <&mo 4>, <&mo 6>;
-            mods = <(MOD_LALT)>;  // dummy, we'll use layer-based conditional instead
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        // When Layer 7 is active, pressing mod key activates both Layer 4 AND Layer 7
+        // This triggers Layer 6 (Linux mods) instead
+        mod_linux {
+            if-layers = <4 7>;
+            then-layer = <6>;
+        };
+
+        // When Layer 7 is active, pressing arrows key activates both Layer 5 AND Layer 7
+        // This triggers Layer 8 (Linux arrows) instead
+        arrows_linux {
+            if-layers = <5 7>;
+            then-layer = <8>;
         };
     };
 
@@ -230,17 +240,17 @@
         };
 
         platform-switch {
-            // Linux mode toggle layer
-            // When this layer is toggled on, it overrides:
-            // - Mod key position (Delete) to activate layer 6 (Linux mods)
-            // - Arrows key position (Enter) to activate layer 8 (Linux arrows)
-            // - Arrows toggle position to toggle layer 8
+            // Platform toggle layer - transparent everywhere except toggle key
+            // Uses conditional_layers to automatically switch mod/arrows behavior
+            // When this layer is active:
+            // - Layer 4 + Layer 7 = Layer 6 (Linux mods via tri-layer)
+            // - Layer 5 + Layer 7 = Layer 8 (Linux arrows via tri-layer)
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans         &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &toggle_platform  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &mo 6   &trans      &trans  &lt 8 ENTER  &trans         &trans  &trans  &trans  &trans  &tog 8
+&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans       &trans         &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
