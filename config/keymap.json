@@ -10,7 +10,8 @@
     "mod-mac",
     "arrows",
     "mod-linux",
-    "platform-switch"
+    "platform-switch",
+    "arrows-linux"
   ],
   "layers": [
     [
@@ -50,17 +51,23 @@
         "&trans",   "&kp LALT",        "&none",        "&none",        "&none",        "&none",                                     "&trans",                     "&trans",                                          "&none",      "&none",      "&none",  "&none", "&kp RCTRL",  "&trans",
         "&trans",        "&trans", "&tmux_newtab", "&tmux_hsplit", "&tmux_vsplit",                                 "&trans", "&trans", "&trans",                     "&trans",      "&trans",     "&trans",      "&tmux_left", "&tmux_down", "&tmux_up", "&tmux_right",  "&trans"
     ], [
+        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans",                                                                                     "&trans",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
+        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans",                                                                                     "&trans",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
+        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans", "&trans", "&trans",                     "&trans",      "&trans", "&toggle_platform",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
+        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                                     "&trans",                     "&trans",                                          "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
+        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                                 "&trans", "&trans", "&trans",                     "&trans",      "&trans",     "&trans",           "&trans",      "&trans",  "&trans",  "&trans",  "&trans"
+    ], [
    "&kp RA(RS(PLUS))", "&kp LA(N1)", "&kp LA(N2)", "&kp LA(N3)", "&kp LA(N4)", "&kp LA(N5)",                 "&none",                                                                                     "&trans", "&kp LC(LS(F))", "&kp LESS_THAN", "&kp GREATER_THAN", "&kp PIPE", "&kp C_VOL_DN", "&kp C_VOL_UP",
    "&kp LA(LS(MINUS))", "&kp LA(F4)",   "&kp LC(W)", "&kp LS(LC(K))",     "&kp LGUI", "&kp LC(T)",           "&bootloader",                                                                                "&bootloader",   "&kp LC(F)",  "&kp LBRC",      "&kp RBRC",  "&kp EQUAL",  "&kp C_MUTE",  "&kp C_PP",
         "&none",   "&kp LC(S)",   "&kp LC(O)",   "&kp LC(C)",    "&kp LC(V)",  "&kp F12",                 "&none",  "&none",  "&none",                     "&bt BT_CLR",      "&none", "&rgb_ug RGB_MEFS_CMD 5",  "&none",   "&kp LPAR",      "&kp RPAR",  "&kp EXCL",  "&kp C_PREV",  "&kp C_NEXT",
         "&none", "&kp LC(MINUS)", "&kp RS(RC(MINUS))", "&kp LC(Z)", "&kp LC(LS(Z))",        "&none",                                     "&none",                   "&bl BL_TOG",                                          "&none",   "&kp LBKT",      "&kp RBKT",  "&kp PLUS",  "&none",  "&none",
         "&none",        "&none", "&kp LA(LS(SEMI))", "&kp LA(COMMA)", "&kp LA(SLASH)",                                 "&none",  "&none",  "&none",                 "&rgb_ug RGB_TOG", "&kp LC(ENTER)", "&kp LC(SLASH)",        "&kp LA(H)", "&kp LA(J)", "&kp RA(K)", "&kp LA(L)",  "&none"
     ], [
-        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans",                                                                                     "&mo 6",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
-        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans",                                                                                     "&trans",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
-        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                 "&trans", "&trans", "&trans",                     "&trans",      "&trans", "&toggle_platform",  "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
-        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                                     "&trans",                     "&trans",                                          "&trans",      "&trans",      "&trans",  "&trans",  "&trans",  "&trans",
-        "&trans",        "&trans",        "&trans",        "&trans",        "&trans",                                 "&trans",  "&mo 6", "&trans",                     "&trans",      "&trans",     "&trans",           "&trans",      "&trans",  "&trans",  "&trans",  "&trans"
+        "&trans", "&bt BT_SEL 0", "&bt BT_SEL 1", "&bt BT_SEL 2", "&bt BT_SEL 3", "&bt BT_SEL 4",                 "&trans",                                                                                     "&trans",  "&trans", "&tmux_resize_left", "&tmux_resize_down", "&tmux_resize_up", "&tmux_resize_right",  "&trans",
+        "&trans",        "&trans",        "&none",  "&kp LC(UP)",        "&none",        "&none",                 "&trans",                                                                                     "&trans",  "&none",      "&none",      "&kp UP",  "&none",  "&none",  "&trans",
+        "&trans",  "&kp LSHFT",  "&kp LC(LEFT)", "&kp LC(DOWN)", "&kp LC(RIGHT)",        "&none",                 "&trans", "&trans", "&trans",                     "&trans",      "&trans",     "&trans",  "&none",   "&kp LEFT",    "&kp DOWN", "&kp RIGHT", "&kp RALT",  "&trans",
+        "&trans",   "&kp LALT",        "&none",        "&none",        "&none",        "&none",                                     "&trans",                     "&trans",                                          "&none",      "&none",      "&none",  "&none", "&kp RCTRL",  "&trans",
+        "&trans",        "&trans", "&tmux_newtab", "&tmux_hsplit", "&tmux_vsplit",                                 "&trans", "&trans", "&trans",                     "&trans",      "&trans",     "&trans",      "&tmux_left", "&tmux_down", "&tmux_up", "&tmux_right",  "&trans"
     ]
     ]
   ]
