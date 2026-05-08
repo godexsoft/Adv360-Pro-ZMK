@@ -34,14 +34,14 @@
     };
 
     macros {
-        dvorak: dvorak {
+        dvorak_mac: dvorak {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&to 1 &kp LC(SPACE)>;
+            bindings = <&to 2 &kp LC(SPACE)>;
             label = "DVORAK";
         };
 
-        russian: russian {
+        russian_mac: russian {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&to 0 &kp RC(SPACE)>;
@@ -127,41 +127,75 @@
 
         // Platform switching macros
 
-        switch_platform: switch_mac {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&tog 4 &tog 5>;  // Return to base (uses Mac mod layer 4)
-            label = "SWITCH_MAC";
-        };
-
         switch_linux: switch_linux {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&tog 5>;  // Base layer will use Linux mod layer 6 when &mo 6 is pressed
+            bindings = <&tog 1>;  // Base layer will use Linux mod layer 6 when &mo 6 is pressed
             label = "SWITCH_LINUX";
+        };
+
+        switch_mac: switch_mac {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&tog 0>;
+            label = "SWITCH_MAC";
+        };
+
+        dvorak_linux: dvorak_linux {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&to 3 &kp LC(LA(LS(LG(NUMBER_1))))>;
+            label = "DVORAK_LINUX";
+        };
+
+        russian_linux: russian_linux {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&to 1 &kp RC(RG(RA(RS(NUMBER_2))))>;
+            label = "RUSSIAN_LINUX";
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        default-qwerty {
+        default-mac {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 2                                                                       &none          &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
-&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak                                                                      &none          &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
-&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL      &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL     &switch_linux  &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                 &kp HOME      &kp PG_UP                                       &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 10 DELETE  &kp END       &kp PAGE_DOWN      &lt 11 ENTER  &kp SPACE              &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
+&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 4                                                                     &none          &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak_mac                                                                &none          &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
+&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL     &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL    &switch_linux  &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                &kp HOME      &kp PG_UP                                      &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&mo 5      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 6 DELETE  &kp END       &kp PAGE_DOWN      &lt 8 ENTER  &kp SPACE              &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
             >;
         };
 
-        dvorak {
+        default-linux {
             bindings = <
-&kp EQUAL  &kp N1     &kp N2     &kp N3   &kp N4  &kp N5  &trans                                        &trans  &kp N6  &kp N7  &kp N8  &kp N9    &kp N0    &kp MINUS
-&kp TAB    &kp APOS   &kp COMMA  &kp DOT  &kp P   &kp Y   &russian                                      &trans  &kp F   &kp G   &kp C   &kp R     &kp L     &kp FSLH
-&kp ESC    &kp A      &kp O      &kp E    &kp U   &kp I   &trans    &trans  &trans      &trans  &trans  &trans  &kp D   &kp H   &kp T   &kp N     &kp S     &kp BSLH
-&kp LSHFT  &kp SEMI   &kp Q      &kp J    &kp K   &kp X                     &trans      &trans                  &kp B   &kp M   &kp W   &kp V     &kp Z     &kp RSHFT
-&trans     &kp GRAVE  &trans     &trans   &trans          &trans    &trans  &trans      &trans  &trans  &trans          &trans  &trans  &kp LBKT  &kp RBKT  &trans
+&kp EQUAL  &kp N1     &kp N2    &kp N3    &kp N4     &kp N5  &tog 4                                                                     &none        &kp N6  &kp N7  &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &dvorak_linux                                                              &none        &kp Y   &kp U   &kp I      &kp O     &kp P     &kp BSLH
+&kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &kp LG(GRAVE)  &kp LCTRL     &kp LALT      &kp RIGHT_COMMAND  &kp RCTRL    &switch_mac  &kp H   &kp J   &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                                &kp HOME      &kp PG_UP                                    &kp N   &kp M   &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&mo 5      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BACKSPACE  &lt 7 DELETE  &kp END       &kp PAGE_DOWN      &lt 9 ENTER  &kp SPACE            &kp UP  &kp DOWN   &kp LBKT  &kp RBKT  &tog 9
+            >;
+        };
+
+        dvorak-mac {
+            bindings = <
+&kp EQUAL  &kp N1     &kp N2     &kp N3   &kp N4  &kp N5  &trans                                            &trans  &kp N6  &kp N7  &kp N8  &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp APOS   &kp COMMA  &kp DOT  &kp P   &kp Y   &russian_mac                                      &trans  &kp F   &kp G   &kp C   &kp R     &kp L     &kp FSLH
+&kp ESC    &kp A      &kp O      &kp E    &kp U   &kp I   &trans        &trans  &trans      &trans  &trans  &trans  &kp D   &kp H   &kp T   &kp N     &kp S     &kp BSLH
+&kp LSHFT  &kp SEMI   &kp Q      &kp J    &kp K   &kp X                         &trans      &trans                  &kp B   &kp M   &kp W   &kp V     &kp Z     &kp RSHFT
+&trans     &kp GRAVE  &trans     &trans   &trans          &trans        &trans  &trans      &trans  &trans  &trans          &trans  &trans  &kp LBKT  &kp RBKT  &trans
+            >;
+        };
+
+        dvorak-linux {
+            bindings = <
+&kp EQUAL  &kp N1     &kp N2     &kp N3   &kp N4  &kp N5  &trans                                              &trans  &kp N6  &kp N7  &kp N8  &kp N9    &kp N0    &kp MINUS
+&kp TAB    &kp APOS   &kp COMMA  &kp DOT  &kp P   &kp Y   &russian_linux                                      &trans  &kp F   &kp G   &kp C   &kp R     &kp L     &kp FSLH
+&kp ESC    &kp A      &kp O      &kp E    &kp U   &kp I   &trans          &trans  &trans      &trans  &trans  &trans  &kp D   &kp H   &kp T   &kp N     &kp S     &kp BSLH
+&kp LSHFT  &kp SEMI   &kp Q      &kp J    &kp K   &kp X                           &trans      &trans                  &kp B   &kp M   &kp W   &kp V     &kp Z     &kp RSHFT
+&trans     &kp GRAVE  &trans     &trans   &trans          &trans          &trans  &trans      &trans  &trans  &trans          &trans  &trans  &kp LBKT  &kp RBKT  &trans
             >;
         };
 
@@ -171,37 +205,17 @@
 &kp TAB    &kp Q      &kp W     &kp E     &kp R      &kp T   &none                                                    &none      &kp Y   &kp KP_N7   &kp KP_N8     &kp KP_N9      &kp KP_MINUS     &kp BSLH
 &kp ESC    &kp A      &kp S     &kp D     &kp F      &kp G   &none     &kp LCTRL  &kp LALT      &kp LGUI   &kp RCTRL  &none      &kp H   &kp KP_N4   &kp KP_N5     &kp KP_N6      &kp KP_PLUS      &kp SQT
 &kp LSHFT  &kp Z      &kp X     &kp C     &kp V      &kp B                        &kp HOME      &kp PG_UP                        &kp N   &kp KP_N1   &kp KP_N2     &kp KP_N3      &kp KP_ENTER     &kp RSHFT
-&mo 3      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BSPC  &kp DEL    &kp END       &kp PG_DN  &kp ENTER  &kp KP_N0          &kp UP      &kp DOWN      &kp KP_DOT     &none            &mo 3
+&mo 5      &kp GRAVE  &kp CAPS  &kp LEFT  &kp RIGHT          &kp BSPC  &kp DEL    &kp END       &kp PG_DN  &kp ENTER  &kp KP_N0          &kp UP      &kp DOWN      &kp KP_DOT     &none            &mo 5
             >;
         };
 
         fn {
             bindings = <
-&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 2                                      &none   &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
+&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &tog 4                                      &none   &kp F7  &kp F8  &kp F9  &kp F10  &kp F11  &kp F12
 &trans  &trans  &trans  &trans  &trans  &trans  &none                                       &none   &trans  &trans  &trans  &trans   &trans   &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &trans  &trans  &trans   &trans   &trans
 &trans  &trans  &none   &none   &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans   &trans   &trans
 &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans   &trans   &trans
-            >;
-        };
-
-        platform-mac {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &switch_platform  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-            >;
-        };
-
-        platform-linux {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &switch_platform  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                            &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
             >;
         };
 
@@ -248,48 +262,28 @@
 &trans  &trans          &tmux_newtab  &tmux_hsplit      &tmux_vsplit                 &trans  &trans  &trans      &trans  &trans  &trans          &tmux_left         &tmux_down         &tmux_up         &tmux_right         &trans
             >;
         };
-
-        mods-request {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-            >;
-        };
-
-        arrows-request {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                                      &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans      &trans                  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans      &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans
-            >;
-        };
     };
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
 
         linux-mods {
-            if-layers = <10 5>;
+            if-layers = <12 6>;
             then-layer = <7>;
         };
 
         linux-arrows {
-            if-layers = <11 5>;
+            if-layers = <12 6>;
             then-layer = <9>;
         };
 
         mac-mods {
-            if-layers = <4 10>;
+            if-layers = <6 12>;
             then-layer = <6>;
         };
 
         arrows-mac {
-            if-layers = <11 4>;
+            if-layers = <12 6>;
             then-layer = <8>;
         };
     };
