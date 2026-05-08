@@ -264,27 +264,5 @@
         };
     };
 
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-
-        linux-mods {
-            if-layers = <12 6>;
-            then-layer = <7>;
-        };
-
-        linux-arrows {
-            if-layers = <12 6>;
-            then-layer = <9>;
-        };
-
-        mac-mods {
-            if-layers = <6 12>;
-            then-layer = <6>;
-        };
-
-        arrows-mac {
-            if-layers = <12 6>;
-            then-layer = <8>;
-        };
-    };
+    conditional_layers { compatible = "zmk,conditional-layers"; };
 };
